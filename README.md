@@ -11,4 +11,5 @@
 
 ## SwiftUI
 - Brief intro to SwiftUI: https://youtu.be/K_OaH4nUI_Q?t=144
-- For your own research, learn: vstack, hstack, zstack, button, spacer, struct, body, ContentView, NavigationView
+- For your own research, learn: vstack, hstack, zstack, button, spacer, View Modifers, struct, body, ContentView, NavigationView, and state variable
+- After feeling like you have a general understanding of these terms and how they work, dive right into one of the issues to learn through experience
