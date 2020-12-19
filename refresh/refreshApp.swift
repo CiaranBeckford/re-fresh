@@ -14,7 +14,7 @@ struct refreshApp: App {
     
     var body: some Scene {
         WindowGroup {
-            homepage()
+            TitleScreen()
         }
     }
 }
