@@ -11,7 +11,6 @@ import SwiftUI
 
 struct YourFridge: View {
     @State var isTapped = false
-
     @State var progressValue: Float = 0.0
     @ObservedObject var fridgeItems = FridgeItems()
     
@@ -48,7 +47,7 @@ struct YourFridge: View {
                       .shadow(color: .gray, radius: 5, x: 5, y: 5)
                      
                   }
-               }.navigationBarTitle(Text("Your Items"))
+                }.navigationBarTitle(Text(UserDefaults.standard.string(forKey: "fridgeName") ?? "Error"))
             }
             if !self.isTapped {
                 Button(action: {
@@ -68,11 +67,7 @@ struct YourFridge: View {
        }
 }
 
-struct YourFridge_Previews: PreviewProvider {
-    static var previews: some View {
-        YourFridge()
-    }
-}
+
 struct ItemView: View {
    var fridgeItem: Item
    var body: some View {

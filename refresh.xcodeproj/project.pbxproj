@@ -14,6 +14,9 @@
 		B64761332562FAD000FB5B0D /* refreshUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64761322562FAD000FB5B0D /* refreshUITests.swift */; };
 		B6CF826E258DC2AB00715979 /* TitleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CF826D258DC2AB00715979 /* TitleScreen.swift */; };
 		B6CF8273258E699300715979 /* airbnb-cereal-app-cufonfonts in Resources */ = {isa = PBXBuildFile; fileRef = B6CF8272258E699300715979 /* airbnb-cereal-app-cufonfonts */; };
+		B6CF8278258E76C600715979 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CF8277258E76C600715979 /* SignUp.swift */; };
+		B6CF8280258ED68800715979 /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CF827F258ED68700715979 /* SignIn.swift */; };
+		B6CF8288258EDE8800715979 /* CreateFridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CF8287258EDE8800715979 /* CreateFridge.swift */; };
 		B6FD70FE258A993200B32715 /* homepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD70FD258A993200B32715 /* homepage.swift */; };
 		B6FD7106258A9C1200B32715 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD7105258A9C1200B32715 /* ColorManager.swift */; };
 		B6FD710B258AA32B00B32715 /* YourFridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD710A258AA32B00B32715 /* YourFridge.swift */; };
@@ -53,6 +56,9 @@
 		B64761342562FAD000FB5B0D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6CF826D258DC2AB00715979 /* TitleScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleScreen.swift; sourceTree = "<group>"; };
 		B6CF8272258E699300715979 /* airbnb-cereal-app-cufonfonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "airbnb-cereal-app-cufonfonts"; sourceTree = "<group>"; };
+		B6CF8277258E76C600715979 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		B6CF827F258ED68700715979 /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		B6CF8287258EDE8800715979 /* CreateFridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFridge.swift; sourceTree = "<group>"; };
 		B6FD70FD258A993200B32715 /* homepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homepage.swift; sourceTree = "<group>"; };
 		B6FD7105258A9C1200B32715 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		B6FD710A258AA32B00B32715 /* YourFridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourFridge.swift; sourceTree = "<group>"; };
@@ -161,6 +167,9 @@
 			isa = PBXGroup;
 			children = (
 				B6CF826D258DC2AB00715979 /* TitleScreen.swift */,
+				B6CF8277258E76C600715979 /* SignUp.swift */,
+				B6CF827F258ED68700715979 /* SignIn.swift */,
+				B6CF8287258EDE8800715979 /* CreateFridge.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -319,7 +328,10 @@
 				B6FD710B258AA32B00B32715 /* YourFridge.swift in Sources */,
 				B6FD70FE258A993200B32715 /* homepage.swift in Sources */,
 				B6FD7106258A9C1200B32715 /* ColorManager.swift in Sources */,
+				B6CF8280258ED68800715979 /* SignIn.swift in Sources */,
 				B6CF826E258DC2AB00715979 /* TitleScreen.swift in Sources */,
+				B6CF8288258EDE8800715979 /* CreateFridge.swift in Sources */,
+				B6CF8278258E76C600715979 /* SignUp.swift in Sources */,
 				B6FD7115258AA39A00B32715 /* MembersPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

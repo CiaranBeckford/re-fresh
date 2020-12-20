@@ -35,14 +35,16 @@ struct TitleScreen: View {
                     .padding(.horizontal, UIScreen.main.bounds.width*0.25)
                 Spacer()
                 VStack{
-                    NavigationLink(destination: homepage(), tag: "First", selection: $selection) { EmptyView() }
-                    NavigationLink(destination: Text("Third View"), tag: "Second", selection: $selection) { EmptyView() }
+                    NavigationLink(destination: SignUp(), tag: "SignUp", selection: $selection) {  }
+                    NavigationLink(destination: SignIn(), tag: "SignIn", selection: $selection) {  }
+                    
                     
                     Button(action: {
                         //self.presentationMode.wrappedValue.dismiss()
-                        self.selection = "First"
+                        self.selection = "SignUp"
                     }) {
                         HStack {
+                            
                             Text("Sign Up")
                                 .padding(.horizontal, UIScreen.main.bounds.height*0.15)
                                 .foregroundColor(Color.init(0x3F414E))
@@ -55,7 +57,7 @@ struct TitleScreen: View {
                     
                     Button(action: {	
                         self.presentationMode.wrappedValue.dismiss()
-                        self.selection = "Second"
+                        self.selection = "SignIn"
                     }) {
                         
                         Text("Already have an account? Log in")
@@ -72,9 +74,6 @@ struct TitleScreen: View {
                 .padding(.bottom, UIScreen.main.bounds.height*0.05)
                 
             }
-            .navigationBarTitle("")
-            .navigationBarBackButtonHidden(true)
-            .navigationBarHidden(true)
             .frame(maxWidth: .infinity)
             .background(Color.teal)
             .ignoresSafeArea()
