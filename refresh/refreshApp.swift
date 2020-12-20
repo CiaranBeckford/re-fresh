@@ -14,7 +14,14 @@ struct refreshApp: App {
     
     var body: some Scene {
         WindowGroup {
-            homepage()
+            
+            //Checks if user has made a fridge
+            if UserDefaults.standard.string(forKey: "fridgeName") != nil {
+                homepage()
+            }
+            else {
+                TitleScreen()
+            }
         }
     }
 }
