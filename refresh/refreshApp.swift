@@ -16,14 +16,12 @@ struct refreshApp: App {
         WindowGroup {
             
             //Checks if user has made a fridge
-           /* if UserDefaults.standard.string(forKey: "fridgeName") != nil {
+            if UserDefaults.standard.string(forKey: "fridgeName") != nil {
                 homepage()
             }
             else {
                 TitleScreen()
             }
-            */
-            TitleScreen()
         }
     }
 }
