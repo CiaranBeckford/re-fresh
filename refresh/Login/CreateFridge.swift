@@ -17,6 +17,7 @@ struct CreateFridge: View {
             Text("Create your first fridge")
                 .font(.custom("Helvetica Neue", size: 28))
                 .fontWeight(.bold)
+                .padding(.top, 20)
             Spacer()
             HStack{
                 TextField("Name", text: self.$fridgeName)
@@ -32,6 +33,7 @@ struct CreateFridge: View {
                 .font(.custom("Helvetica Neue", size: 14))
                 .fontWeight(.bold)
                 .foregroundColor(Color.init(0xA1A4B2))
+                .padding(.top, 10)
             HStack{
                 TextField("Fridge code", text: $code)
                     .padding(.horizontal, 15)

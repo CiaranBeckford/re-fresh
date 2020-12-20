@@ -119,27 +119,26 @@ struct SignUp: View {
                 }
                
                 HStack {
-                    VStack 	{
-                        Text("By tapping the box, you agree to the ")
-                            .font(.custom("Helvetica Neue", size: 12))
-                        HStack(spacing: 0) {
+                                               VStack {
+                                Text("By tapping the box, you agree to the ")
+                                    .font(.custom("Helvetica Neue", size: 12))
+                                HStack (spacing: 0){
                                     Link("privacy policy", destination: URL(string: "https://refresh.flycricket.io/privacy.html")!)
                                         .font(.custom("Helvetica Neue", size: 12))
                                     Text(" and ")
                                         .font(.custom("Helvetica Neue", size: 12))
                                     Link("Terms of Service", destination: URL(string: "https://refresh.flycricket.io/terms.html")!)
                                         .font(.custom("Helvetica Neue", size: 12))
-                                    Text(".")
-                                        .font(.custom("Helvetica Neue", size: 12))
                                 }
-                    }
+                            }.frame(width: 250)
+                                   
                     CheckboxField(
                                         id: "privacy",
                                         label: "",
                                         size: 14,
                                         textSize: 14,
                                         callback: checkboxSelected
-                    ).padding(.leading, UIScreen.main.bounds.width*0.37)
+                    )
                 }.padding(.leading, 30)
                 .padding(.top, 10)
                 
@@ -150,9 +149,7 @@ struct SignUp: View {
                     if self.checked && self.name != "" && self.email != "" && self.password != "" {
                         
                        
-                        NavigationLink(destination: CreateFridge().navigationBarTitle("")
-                                        .navigationBarHidden(true)
-                                        .navigationBarBackButtonHidden(true), tag: "SignUp", selection: $selection ) {  }
+                        NavigationLink(destination: CreateFridge(), tag: "SignUp", selection: $selection ) {  }
                         Button(action: {
                             //self.presentationMode.wrappedValue.dismiss()
                         self.selection = "SignUp"
