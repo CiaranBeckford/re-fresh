@@ -46,3 +46,17 @@ class FridgeItems: ObservableObject {
       
    ]
 }
+
+struct Member: Identifiable {
+   var id = UUID()
+   var action: String
+   var pic : String
+   var account : String
+}
+class FridgeMembers: ObservableObject {
+  @Published  var members: [Member] = [
+    Member(action: "Brian Smith", pic: "profile1", account: "profile1"),
+    Member(action: "Ruth Bader Ginsberg", pic: "profile2", account: "profile2")
+   ]
+}
+
