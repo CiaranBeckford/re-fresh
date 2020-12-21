@@ -53,6 +53,14 @@ class FridgeItems: ObservableObject {
       
    ]
 }
+class CartItems: ObservableObject {
+  @Published  var items: [Item] = [
+    Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile1"),
+    Item(action: "Egg", pic: "egg", expiration: 12.0, account: "profile1"),
+    Item(action: "Mayo", pic: "mayo", expiration: 60.0, account: "profile1"),
+    Item(action: "Apple", pic: "apple", expiration: 4.0, account: "profile1")
+   ]
+}
 
 struct Member: Identifiable {
    var id = UUID()
