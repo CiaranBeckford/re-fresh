@@ -70,8 +70,23 @@ struct Member: Identifiable {
 }
 class FridgeMembers: ObservableObject {
   @Published  var members: [Member] = [
-    Member(action: "Brian Smith", pic: "profile1", account: "profile1"),
-    Member(action: "Ruth Bader Ginsberg", pic: "profile2", account: "profile2")
+    Member(action: "Person 1", pic: "profile1", account: "profile1"),
+    Member(action: "Person 2", pic: "profile2", account: "profile2")
    ]
 }
+
+struct Option: Identifiable {
+   var id = UUID()
+   var action: String
+   var pic : String
+}
+class ProfileOptions: ObservableObject {
+  @Published  var options: [Option] = [
+    Option(action: "Edit Profile", pic: "edit-profile"),
+    Option(action: "Email & Password", pic: "settings"),
+    Option(action: "Notifications", pic: "notifications"),
+    Option(action: "Contact Us", pic: "contact")
+   ]
+}
+
 
