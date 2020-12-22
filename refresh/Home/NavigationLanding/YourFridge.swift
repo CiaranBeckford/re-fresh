@@ -3,6 +3,7 @@
 //  refresh
 //
 //  Created by Ciaran Beckford on 12/16/20.
+//  Edited by Alice Zhang on 12/21/20.
 //
 
 import SwiftUI
@@ -13,60 +14,94 @@ struct YourFridge: View {
     @State var isTapped = false
     @State var progressValue: Float = 0.0
     @ObservedObject var fridgeItems = FridgeItems()
+    @State var showAdd = false
     
     //TODO: https://www.hackingwithswift.com/books/ios-swiftui/dynamically-filtering-a-swiftui-list
     
-       var body: some View {
-        VStack{
-            NavigationView {
-                List(fridgeItems.items) { fridgeItem in
-                NavigationLink(destination: ItemView(fridgeItem: fridgeItem), isActive: Binding<Bool>(get: { isTapped }, set: { isTapped = $0; })) {
-                      HStack{
-                          Image(fridgeItem.pic)
-                          VStack{
-                              HStack{
-                                  Text(fridgeItem.action)
-                                  Spacer()
-                              }
-                            HStack{
-                                ProgressBar(value: 1.0-1.0/fridgeItem.expiration).frame(height: 15)
+    var body: some View {
+        ZStack {
+            VStack {
+                NavigationView {
+                    List(fridgeItems.items) { fridgeItem in
+                    NavigationLink(destination: ItemView(fridgeItem: fridgeItem), isActive: Binding<Bool>(get: { isTapped }, set: { isTapped = $0; })) {
+                            HStack {
+                                Image(fridgeItem.pic)
+                                VStack{
+                                    HStack {
+                                        Text(fridgeItem.action)
+                                        Spacer()
+                                    }
+                                    HStack{
+                                        ProgressBar(value: 1.0-1.0/fridgeItem.expiration).frame(height: 15)
+                                        Spacer()
+                                        Image(fridgeItem.account)
+                                            .resizable()
+                                            .frame(width: 20,  height: 20)
+                                    }
+                                }
                                 Spacer()
-                                Image(fridgeItem.account)
-                                    .resizable()
-                                    .frame(width: 20,  height: 20)
                             }
-                              
-                          }
-                          
-                          Spacer()
-                      }
-                      .padding()
-                      .frame(width: UIScreen.main.bounds.width*0.85, height: 60)
-                      .background(Color.boneWhite)
-                      .cornerRadius(10)
-                      .shadow(color: .gray, radius: 5, x: 5, y: 5)
-                     
-                  }
-                }.navigationBarTitle(Text(UserDefaults.standard.string(forKey: "fridgeName") ?? "Error"))
-            }
-            if !self.isTapped {
-                Button(action: {
-                    // Example of how to append item: self.fridgeItems.items.append(Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile2"))
-                }) {
-                    Image(systemName: "plus.circle.fill")
-                        .resizable()
-                        .frame(width: 65, height:65)
-                        .foregroundColor(Color.teal)
-                        .padding()
+                            .padding()
+                            .frame(width: UIScreen.main.bounds.width*0.85, height: 60)
+                            .background(Color.boneWhite)
+                            .cornerRadius(10)
+                            .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                        }
+                    }.navigationBarTitle(Text(UserDefaults.standard.string(forKey: "fridgeName") ?? "Error"))
+                }
+                if !self.isTapped {
+                    Button(action: {
+                        // Example of how to append item: self.fridgeItems.items.append(Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile2"))
+                        self.showAdd.toggle()
+                    }) {
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .frame(width: 65, height:65)
+                            .foregroundColor(Color.teal)
+                            .padding()
+                    }
                 }
             }
-            
-            
+            ZStack {
+                if showAdd {
+                    Text("Add New Items")
+                        .font(.headline)
+                        .padding()
+                    HStack{
+                        NavigationLink(destination: QuickAdd()) {
+                            VStack{
+                                Image("search")
+                                Text("Quick Add")
+                                    .font(.headline)
+                            }
+                        }
+                        .padding()
+                        .frame(width: UIScreen.main.bounds.width*0.4, height: 120)
+                        .background(Color.boneWhite)
+                        .cornerRadius(10)
+                        .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                            
+                        NavigationLink(destination: PhotoView()) {
+                            VStack{
+                                Image("qr-code")
+                                Text("Take Photo")
+                                    .font(.headline)
+                            }
+                        }
+                        .padding()
+                        .frame(width: UIScreen.main.bounds.width*0.4, height: 120)
+                        .background(Color.boneWhite)
+                        .cornerRadius(10)
+                        .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                    }
+                    .navigationBarTitle("Add New Items")
+                    .navigationBarHidden(true)
+                }
+            }
+            .position(x: 200, y: 545)
         }
-          
-       }
+    }
 }
-
 
 struct ItemView: View {
    var fridgeItem: Item
@@ -78,8 +113,6 @@ struct ItemView: View {
             Image(fridgeItem.pic)
         }
     }
-    
-      
    }
 }
 
@@ -100,3 +133,12 @@ struct ProgressBar: View {
         }
     }
 }
+
+struct PhotoView: View {
+   var body: some View {
+    VStack{
+        Text("Take Photo")
+    }
+   }
+}
+
