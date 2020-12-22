@@ -70,8 +70,10 @@ struct Member: Identifiable {
 }
 class FridgeMembers: ObservableObject {
   @Published  var members: [Member] = [
-    Member(action: "Brian Smith", pic: "profile1", account: "profile1"),
-    Member(action: "Ruth Bader Ginsberg", pic: "profile2", account: "profile2")
+    Member(action: "Person 1", pic: "profile1", account: "profile1"),
+    Member(action: "Person 2", pic: "profile2", account: "profile2")
    ]
 }
+
+
 
