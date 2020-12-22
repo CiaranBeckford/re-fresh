@@ -32,7 +32,7 @@ struct homepage: View {
                             Text("MembersPage")
                             Image(systemName: "person.2")
                         }
-                    QuickAdd()
+                    ProfilePage()
                         .tabItem {
                             Text("ProfilePage")
                             Image(systemName: "person.crop.circle")

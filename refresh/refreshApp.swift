@@ -17,12 +17,15 @@ struct refreshApp: App {
         WindowGroup {
             
             //Checks if user has made a fridge
+            
             if UserDefaults.standard.string(forKey: "fridgeName") != nil {
                 homepage()
             }
             else {
                 TitleScreen()
             }
+ 
+            //QRCodeScannerExampleView()
         }
     }
 }
@@ -86,4 +89,22 @@ class FridgeMembers: ObservableObject {
     Member(action: "Person 1", pic: "profile1", account: "profile1"),
     Member(action: "Person 2", pic: "profile2", account: "profile2")
    ]
+}
+extension UINavigationController {
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+
+    let standard = UINavigationBarAppearance()
+    standard.backgroundColor = .white //When you scroll or you have title (small one)
+
+    let compact = UINavigationBarAppearance()
+    compact.backgroundColor = .white //compact-height
+
+    let scrollEdge = UINavigationBarAppearance()
+    scrollEdge.backgroundColor = .white //When you have large title
+
+    navigationBar.standardAppearance = standard
+    navigationBar.compactAppearance = compact
+    navigationBar.scrollEdgeAppearance = scrollEdge
+ }
 }
