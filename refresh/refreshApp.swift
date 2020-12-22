@@ -62,6 +62,18 @@ class CartItems: ObservableObject {
     Item(action: "Apple", pic: "apple", expiration: 4.0, account: "profile1")
    ]
 }
+class RecentItems: ObservableObject {
+  @Published  var items: [Item] = [
+    Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile1"),
+    Item(action: "Steak", pic: "steak", expiration: 4.0, account: "profile2"),
+    Item(action: "Egg", pic: "egg", expiration: 12.0, account: "profile1"),
+    Item(action: "Mayo", pic: "mayo", expiration: 60.0, account: "profile1"),
+    Item(action: "Apple", pic: "apple", expiration: 4.0, account: "profile1"),
+    Item(action: "Carrot", pic: "carrot", expiration: 20.0, account: "profile2"),
+    Item(action: "Bread", pic: "bread", expiration: 7.0, account: "profile2"),
+    Item(action: "Green Sauce", pic: "greensauce", expiration: 45.0, account: "profile1")
+   ]
+}
 
 struct Member: Identifiable {
    var id = UUID()
@@ -71,8 +83,7 @@ struct Member: Identifiable {
 }
 class FridgeMembers: ObservableObject {
   @Published  var members: [Member] = [
-    Member(action: "Brian Smith", pic: "profile1", account: "profile1"),
-    Member(action: "Ruth Bader Ginsberg", pic: "profile2", account: "profile2")
+    Member(action: "Person 1", pic: "profile1", account: "profile1"),
+    Member(action: "Person 2", pic: "profile2", account: "profile2")
    ]
 }
-
