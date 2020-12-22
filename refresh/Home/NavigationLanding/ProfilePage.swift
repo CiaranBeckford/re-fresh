@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ProfilePage: View {
-    @State var isTapped = false
-    @ObservedObject var profileOptions = ProfileOptions()
-    
+    @State private var selection: String? = nil
     var body: some View {
-        VStack{
-            NavigationView {
+        NavigationView {
+            VStack {
+                
                 VStack{
                     Image("profile1")
                         .resizable()
@@ -22,25 +21,125 @@ struct ProfilePage: View {
                         .font(.title)
                 }
                 .navigationBarTitle(Text("My Profile"))
-            }
-            NavigationView {
-                List(profileOptions.options) { profileOption in
-                NavigationLink(destination: OptionView(profileOption: profileOption), isActive: Binding<Bool>(get: { isTapped }, set: { isTapped = $0; })) {
-                      HStack{
-                          Image(profileOption.pic)
-                            .resizable()
-                            .frame(width: 25,  height: 25)
-                          Text(profileOption.action)
-                          Spacer()
-                      }
-                      .padding()
-                      .frame(width: UIScreen.main.bounds.width*0.85, height: 60)
-                      .background(Color.boneWhite)
-                      .cornerRadius(10)
-                      .shadow(color: .gray, radius: 5, x: 5, y: 5)
-                  }
-               }.navigationBarTitle("")
-                .navigationBarHidden(true)
+                
+                VStack{
+                    
+                    Group {
+                        Divider()
+                        NavigationLink(destination: Text("Edit Profile"), tag: "EditProfile", selection: $selection) {  }
+                        Button(action : {
+                            self.selection = "EditProfile"
+                        }){
+                            HStack {
+                                Image(systemName: "person.fill")
+                                    .foregroundColor(Color.teal)
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 10)
+                                Text("Edit Profile")
+                                    .font(.custom("Helvetica Neue", size: 16))
+                                    .fontWeight(.medium)
+                                    .foregroundColor(Color.black)
+                                    .padding(.leading, 10)
+                                    .padding(.vertical, 10)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color.black)
+                                    .padding(.trailing, 15)
+                            }
+                        }
+                        
+                        Divider()
+                    }
+                    
+                    Group {
+                        NavigationLink(destination: Text("Edit Email and Password"), tag: "settings", selection: $selection) {  }
+                        Button(action : {
+                            self.selection = "settings"
+                        }){
+                            HStack {
+                                Image(systemName: "gear")
+                                    .foregroundColor(Color.teal)
+                                    .padding(.horizontal, 13)
+                                    .padding(.vertical, 10)
+                                Text("Email & Password")
+                                    .font(.custom("Helvetica Neue", size: 16))
+                                    .fontWeight(.medium)
+                                    .foregroundColor(Color.black)
+                                    .padding(.leading, 10)
+                                    .padding(.vertical, 10)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color.black)
+                                    .padding(.trailing, 15)
+                            }
+                        }
+                        
+                        Divider()
+                    }
+                    
+                    Group {
+                        NavigationLink(destination: Text("Notiflications"), tag: "notifications", selection: $selection ){ }
+                        
+                        Button(action : {
+                            self.selection = "notifications"
+                        }){
+                            HStack {
+                                Image(systemName: "bell")
+                                    .foregroundColor(Color.teal)
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 10)
+                                Text("Notifications")
+                                    .font(.custom("Helvetica Neue", size: 16))
+                                    .fontWeight(.medium)
+                                    .foregroundColor(Color.black)
+                                    .padding(.leading, 10)
+                                    .padding(.vertical, 10)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color.black)
+                                    .padding(.trailing, 15)
+                            }
+                        }
+                        
+                        Divider()
+                    }
+                    
+                    Group {
+                        NavigationLink(destination: Text("Contact Us"), tag: "ContactUs", selection: $selection ){ }
+                        
+                        Button(action : {
+                            self.selection = "ContactUs"
+                        }){
+                            HStack {
+                                Image(systemName: "phone")
+                                    .foregroundColor(Color.teal)
+                                    .padding(.horizontal, 15)
+                                    .padding(.vertical, 10)
+                                Text("Contact Us")
+                                    .font(.custom("Helvetica Neue", size: 16))
+                                    .fontWeight(.medium)
+                                    .foregroundColor(Color.black)
+                                    .padding(.leading, 10)
+                                    .padding(.vertical, 10)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundColor(Color.black)
+                                    .padding(.trailing, 15)
+                            }
+                        }
+                        
+                        Divider()
+                    }
+                    
+                    
+                    
+                }
+                
+                
+                Spacer()
+                
+                
+            
             }
         }
     }
@@ -50,18 +149,4 @@ struct ProfilePage_Previews: PreviewProvider {
     static var previews: some View {
         ProfilePage()
     }
-}
-
-struct OptionView: View {
-   var profileOption: Option
-   var body: some View {
-    VStack{
-        HStack{
-            Text(profileOption.action)
-            Image(profileOption.pic)
-        }
-    }
-    
-      
-   }
 }

@@ -75,18 +75,5 @@ class FridgeMembers: ObservableObject {
    ]
 }
 
-struct Option: Identifiable {
-   var id = UUID()
-   var action: String
-   var pic : String
-}
-class ProfileOptions: ObservableObject {
-  @Published  var options: [Option] = [
-    Option(action: "Edit Profile", pic: "edit-profile"),
-    Option(action: "Email & Password", pic: "settings"),
-    Option(action: "Notifications", pic: "notifications"),
-    Option(action: "Contact Us", pic: "contact")
-   ]
-}
 
 
