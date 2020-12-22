@@ -3,6 +3,7 @@
 //  refresh
 //
 //  Created by Ciaran Beckford on 12/16/20.
+//  Edited by Alice Zhang on 12/21/20.
 //
 
 import SwiftUI
@@ -14,72 +15,125 @@ struct YourFridge: View {
     @State var isTapped = false
     @State var progressValue: Float = 0.0
     @ObservedObject var fridgeItems = FridgeItems()
+    @State var showAdd = false
+    
     @State private var selection: String? = nil
     //TODO: https://www.hackingwithswift.com/books/ios-swiftui/dynamically-filtering-a-swiftui-list
     
-       var body: some View {
-        //VStack{
-            NavigationView {
+    var body: some View {
+        
+        NavigationView {
+            ZStack {
                 VStack {
-                Group {
-                    //NavigationLink(destination: QRCodeScan().navigationBarHidden(true), tag: "QRCode", selection: $selection) {  }
-                    
-                    ScrollView {
-                        VStack(spacing: 20) {
-                            ForEach(fridgeItems.items) { fridgeItem in
-                                NavigationLink(destination: ItemView(fridgeItem: fridgeItem), isActive: Binding<Bool>(get: { isTapped }, set: { isTapped = $0; })) {
-                                    
-                                      HStack{
-                                          Image(fridgeItem.pic)
-                                          VStack{
+                        VStack {
+                            ScrollView {
+                                VStack(spacing: 20) {
+                                    ForEach(fridgeItems.items) { fridgeItem in
+                                        NavigationLink(destination: ItemView(fridgeItem: fridgeItem), isActive: Binding<Bool>(get: { isTapped }, set: { isTapped = $0; })) {
+                                            
                                               HStack{
-                                                  Text(fridgeItem.action)
+                                                  Image(fridgeItem.pic)
+                                                  VStack{
+                                                      HStack{
+                                                          Text(fridgeItem.action)
+                                                          Spacer()
+                                                      }
+                                                    HStack{
+                                                        ProgressBar(value: 1.0-1.0/fridgeItem.expiration).frame(height: 15)
+                                                        Spacer()
+                                                        Image(fridgeItem.account)
+                                                            .resizable()
+                                                            .frame(width: 20,  height: 20)
+                                                    }
+                                                      
+                                                  }
+                                                  
                                                   Spacer()
                                               }
-                                            HStack{
-                                                ProgressBar(value: 1.0-1.0/fridgeItem.expiration).frame(height: 15)
-                                                Spacer()
-                                                Image(fridgeItem.account)
-                                                    .resizable()
-                                                    .frame(width: 20,  height: 20)
-                                            }
-                                              
-                                          }
-                                          
-                                          Spacer()
+                                              .frame(height: 60)
+                                              .background(Color.boneWhite)
+                                              .cornerRadius(10)
+                                              .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                                              .padding(.horizontal, 25)
+                                         
                                       }
-                                      .frame(height: 60)
-                                      .background(Color.boneWhite)
-                                      .cornerRadius(10)
-                                      .shadow(color: .gray, radius: 5, x: 5, y: 5)
-                                      .padding(.horizontal, 25)
-                                 
-                              }
+                                    }
+                                }.padding(.top, 15)
+                            }.frame(width: UIScreen.main.bounds.width).navigationBarTitle(Text(UserDefaults.standard.string(forKey: "fridgeName") ?? "Error"))
+                            
+                            Button(action: {
+                                // Example of how to append item: self.fridgeItems.items.append(Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile2"))
+                                self.showAdd.toggle()
+                            }) {
+                                Image(systemName: "plus.circle.fill")
+                                    .resizable()
+                                    .frame(width: 65, height:65)
+                                    .foregroundColor(Color.teal)
+                                    .padding()
+                                }
                             }
-                        }.padding(.top, 15)
-                    }.frame(width: UIScreen.main.bounds.width)
-                    
-                }
-                        Button(action: {
-                            // Example of how to append item: self.fridgeItems.items.append(Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile2"))
-                            //self.selection = "QRCode"
-                        }) {
-                            Image(systemName: "plus.circle.fill")
-                                .resizable()
-                                .frame(width: 65, height:65)
-                                .foregroundColor(Color.teal)
+                    }
+                
+                ZStack {
+                    if showAdd {
+                        Text("Add New Items")
+                            .font(.headline)
+                            .padding()
+                        
+                        HStack{
+                            Group {
+                                NavigationLink(destination: QuickAdd(), tag: "QuickAdd", selection: $selection) {  }
+                                Button (action: {
+                                    self.selection = "QuickAdd"
+                                }) {
+                                    VStack{
+                                        Image("search")
+                                        Text("Quick Add")
+                                            .font(.headline)
+                                            .foregroundColor(Color.gray)
+                                    }
+                                }
                                 .padding()
+                                .frame(width: UIScreen.main.bounds.width*0.4, height: 120)
+                                .background(Color.boneWhite)
+                            }
+                            
+                            Group {
+                                NavigationLink(destination: QRCodeScan().navigationBarTitle(""), tag: "QRCodeScan", selection: $selection) {  }
+                                
+                                Button (action: {
+                                    self.selection = "QRCodeScan"
+                                }) {
+                                    Divider()
+                                    VStack{
+                                        Image("qr-code")
+                                        Text("Take Photo")
+                                            .font(.headline)
+                                            .foregroundColor(Color.gray)
+                                    }
+                                }
+                                .padding()
+                                .frame(width: UIScreen.main.bounds.width*0.4, height: 120)
+                                .background(Color.boneWhite)
+                            }
+                            
+                            
+                            
+                            
                         }
-                    
+                        .cornerRadius(10)
+                        .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                        .navigationBarTitle("Add New Items")
+                        .navigationBarHidden(true)
+                    }
+                }
+                .position(x: 200, y: UIScreen.main.bounds.height*0.60)
                 }.navigationBarTitle(UserDefaults.standard.string(forKey: "fridgeName") ?? "Error")
-            }
             
-           
             
-      //  }
-          
-       }
-}
+        }
+    }
+   }
 
 
 struct ItemView: View {
@@ -92,8 +146,6 @@ struct ItemView: View {
             Image(fridgeItem.pic)
         }
     }
-    
-      
    }
 }
 

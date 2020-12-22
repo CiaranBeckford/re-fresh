@@ -2,7 +2,8 @@
 //  refreshApp.swift
 //  refresh
 //
-//  Created by Ciaran Beckford on 11/16/20.
+//  Created by Ciaran Beckford on 12/16/20.
+//  Edited by Alice Zhang on 12/21/20.
 //
 
 import SwiftUI
@@ -64,6 +65,18 @@ class CartItems: ObservableObject {
     Item(action: "Apple", pic: "apple", expiration: 4.0, account: "profile1")
    ]
 }
+class RecentItems: ObservableObject {
+  @Published  var items: [Item] = [
+    Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile1"),
+    Item(action: "Steak", pic: "steak", expiration: 4.0, account: "profile2"),
+    Item(action: "Egg", pic: "egg", expiration: 12.0, account: "profile1"),
+    Item(action: "Mayo", pic: "mayo", expiration: 60.0, account: "profile1"),
+    Item(action: "Apple", pic: "apple", expiration: 4.0, account: "profile1"),
+    Item(action: "Carrot", pic: "carrot", expiration: 20.0, account: "profile2"),
+    Item(action: "Bread", pic: "bread", expiration: 7.0, account: "profile2"),
+    Item(action: "Green Sauce", pic: "greensauce", expiration: 45.0, account: "profile1")
+   ]
+}
 
 struct Member: Identifiable {
    var id = UUID()
@@ -77,8 +90,6 @@ class FridgeMembers: ObservableObject {
     Member(action: "Person 2", pic: "profile2", account: "profile2")
    ]
 }
-
-
 extension UINavigationController {
     override open func viewDidLoad() {
         super.viewDidLoad()
