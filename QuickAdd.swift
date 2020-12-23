@@ -10,7 +10,9 @@ import SwiftUI
 struct QuickAdd: View {
     @State var isTapped = false
     @ObservedObject var recentItems = RecentItems()
-    
+    @Binding var fridgeList : [Item]    
+    @State private var selection: String? = nil
+    @State var chosenCategory : String = ""
     let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -22,105 +24,142 @@ struct QuickAdd: View {
      
     var body: some View {
         VStack{
-            NavigationView {
-                List {
-                    TextField("Search", text: $searchText)
-                        .padding(7)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(8)
-                    Text("Recent Items")
-                        .font(.headline)
-                        .padding(.top, 25)
-                    ScrollView(.horizontal, content: {
-                        HStack(spacing: UIScreen.main.bounds.width*0.05) {
-                            ForEach(recentItems.items) { recentItem in
-                                  VStack{
-                                      Image(recentItem.pic)
-                                        .resizable()
-                                        .frame(width: 50,  height: 50)
-                                      Text(recentItem.action)
-                                      Spacer()
-                                  }
-                                  .padding()
-                                  .frame(width: UIScreen.main.bounds.width*0.25, height: UIScreen.main.bounds.width*0.25)
-                                  .background(Color.boneWhite)
-                                  .cornerRadius(10)
-                                  .shadow(color: .gray, radius: 5, x: 5, y: 5)
-                            }
-                        }
-                        .padding(.leading, 10)
-                        .padding(.bottom, 10)
-                    })
+                HStack {
+                    NavigationLink(destination: YourFridge(fridgeItems: self.fridgeList)
+                                    .navigationBarTitle("")
+                                    .navigationBarHidden(true)
+                                    .navigationBarBackButtonHidden(true), tag: "homepage", selection: $selection) {  }
+                    
+                    Button(action: {
+                        self.fridgeList.append(Item(action: "Apple", pic: "apple", expiration: 4.0, account: "profile1"))
+                        self.selection = "homepage"
+                    }) {
+                        Image("apple")
+                            .padding()
+                            .background(Color.boneWhite)
+                            .cornerRadius(10)
+                            .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                            .frame(width: 75, height: 75)
+                    }.padding()
+                    
+                    
+                    Button(action: {
+                        self.fridgeList.append(Item(action: "Carrot", pic: "carrot", expiration: 10.0, account: "profile1"))
+                        self.selection = "homepage"
+                    }){
+                        Image("carrot")
+                            .padding()
+                            .background(Color.boneWhite)
+                            .cornerRadius(10)
+                            .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                            .frame(width: 75, height: 75)
+                    }.padding()
+                    
+                    
+                    Button(action: {
+                        self.fridgeList.append(Item(action: "Eggplant", pic: "eggplant", expiration: 12.0, account: "profile1"))
+                        self.selection = "homepage"
+                    }) {
+                        Image("eggplant")
+                            .padding()
+                            .background(Color.boneWhite)
+                            .cornerRadius(10)
+                            .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                            .frame(width: 75, height: 75)
+                    }.padding()
                 }
-                .navigationBarTitle("Quick Add")
-            }
+            Divider()
+            
             VStack{
+                NavigationLink(destination: Categories(categoryF: self.chosenCategory, fridgeList: self.$fridgeList)
+                                .navigationBarTitle("")
+                                .navigationBarHidden(true)
+                                .navigationBarBackButtonHidden(true), tag: "itemCategory", selection: $selection) {  }
                 Text("Categories")
                     .font(.headline)
-                    .padding(.top, 25)
+                    .padding(.vertical, 25)
                     .frame(width: UIScreen.main.bounds.width*0.9, height: 40, alignment: .topLeading)
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: 20) {
                         ForEach(categories, id: \.self) { category in
-                            Text(category)
+                            
+                            Button (action: {
+                                self.chosenCategory = category
+                                self.selection = "itemCategory"
+                                
+                            }){
+                                
+                                
+                                HStack{
+                                    Text(category)
+                                        .font(.custom("Helvetica Neue", size: 14))
+                                        .fontWeight(.medium)
+                                        .foregroundColor(Color.init(0x3F414E))
+                                }.padding()
+                                .frame(width: UIScreen.main.bounds.width*0.4, height: UIScreen.main.bounds.width*0.15)
+                                .background(Color.boneWhite)
+                                .cornerRadius(10)
+                                .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                            }
                         }
-                        .padding()
-                        .frame(width: UIScreen.main.bounds.width*0.4, height: UIScreen.main.bounds.width*0.15)
-                        .background(Color.boneWhite)
-                        .cornerRadius(10)
-                        .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                        
                     }
                     .padding(.horizontal)
                 }
             }
         }
         
-//        HStack{
-//            NavigationView {
-//                List(recentItems.items) { recentItem in
-//                  VStack{
-//                      Image(recentItem.pic)
-//                        .resizable()
-//                        .frame(width: 50,  height: 50)
-//                      Text(recentItem.action)
-//                      Spacer()
-//                  }
-//                  .padding()
-//                  .frame(width: UIScreen.main.bounds.width*0.2, height: UIScreen.main.bounds.width*0.2)
-//                  .background(Color.boneWhite)
-//                  .cornerRadius(10)
-//                  .shadow(color: .gray, radius: 5, x: 5, y: 5)
-//               }.navigationBarTitle(Text("Quick Add"))
-//            }
-//        }
-        
-        
-        
-//         NavigationView {
-//             List {
-//                 TextField("Search", text: $searchText)
-//                     .padding(7)
-//                     .background(Color(.systemGray6))
-//                     .cornerRadius(8)
-//
-//                 ForEach(
-//                     foods.filter {
-//                         searchText.isEmpty ||
-//                         $0.localizedStandardContains(searchText)
-//                     },
-//                     id: \.self
-//                 ) { eachFood in
-//                     Text(eachFood)
-//                 }
-//             }
-//             .navigationBarTitle("Quick Add")
-//         }
-     
     }
 }
 
-struct QuickAdd_Previews: PreviewProvider {
-    static var previews: some View {
-        QuickAdd()
+struct Categories : View {
+    var categoryF : String
+    
+    @Binding var fridgeList : [Item]
+    @State private var selection: String? = nil
+    @ObservedObject var qaCategories = ItemCategory()
+    let columns = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
+    var body: some View {
+        VStack{
+            //ScrollView {
+            
+                HStack {
+                    ForEach(qaCategories.itemCategory) { category in
+                        Button (action: {
+                            
+                        }){
+                            NavigationLink(destination: YourFridge(fridgeItems: self.fridgeList)
+                                            .navigationBarTitle("")
+                                            .navigationBarHidden(true)
+                                            .navigationBarBackButtonHidden(true), tag: "homepage", selection: $selection) {  }
+                            
+                            Button(action: {
+                                self.fridgeList.append(Item(action: category.name.capitalized, pic: category.name, expiration: 4.0, account: "profile1"))
+                                self.selection = "homepage"
+                                
+                            }) {
+                                if categoryF.elementsEqual(category.category) {
+                                   
+                                    Image(category.name)
+                                        .padding()
+                                        .background(Color.boneWhite)
+                                        .cornerRadius(10)
+                                        .shadow(color: .gray, radius: 5, x: 5, y: 5)
+                                        .frame(width: 75, height: 75)
+                                        .padding()
+                                }
+                                
+                            }
+                        }
+                    }
+                }
+                  
+                .padding(.horizontal)
+            //}
+        }
+        
     }
 }

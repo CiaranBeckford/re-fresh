@@ -10,12 +10,11 @@ import SwiftUI
 struct QRCodeScan: View {
     @State var isPresentingScanner = false
     @State var scannedCode: String?
-    
+    @Binding var fridgeList : [Item]
     var body: some View {
-        NavigationView {
             VStack(spacing: 10) {
                 if self.scannedCode != nil {
-                    NavigationLink("Next page", destination: NextView(scannedCode: scannedCode!), isActive: .constant(true)).hidden()
+                    NavigationLink("Next page", destination: NextView(scannedCode: scannedCode!, fridgeList: self.$fridgeList), isActive: .constant(true)).hidden()
                 }
                 Button("Scan Code") {
                     self.isPresentingScanner = true
@@ -25,8 +24,6 @@ struct QRCodeScan: View {
                 }
                 Text("Scan a QR code to begin")
             }
-
-        }
     }
 
     var scannerSheet : some View {
@@ -46,7 +43,9 @@ struct NextView : View {
     @State var scannedCode : String
     @State private var items: [Item] = []
     @State private var selection: String? = nil
-    @State var isTapped = false 	
+    @State var isTapped = false
+    @Binding var fridgeList : [Item]
+    @ObservedObject var fridgeItems = FridgeItems()
     var body: some View {
         VStack{
             List(items) { fridgeItem in
@@ -74,21 +73,22 @@ struct NextView : View {
                   .background(Color.boneWhite)
                   .cornerRadius(10)
                   .shadow(color: .gray, radius: 5, x: 5, y: 5)
-                 
+                  
             }
             
-            NavigationLink(destination: QRCodeScan()
+            NavigationLink(destination: YourFridge(fridgeItems: self.fridgeList)
                             .navigationBarTitle("")
                             .navigationBarHidden(true)
                             .navigationBarBackButtonHidden(true), tag: "homepage", selection: $selection) {  }
             Button(action: {
                 
+                //self.fridgeList.append(Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile2"))
                 self.selection = "homepage"
             }) {
                 HStack {
                     
-                    Text("Sign In")
-                        .padding(.horizontal, UIScreen.main.bounds.height*0.15)
+                    Text("Add Items")
+                        .padding(.horizontal, UIScreen.main.bounds.height*0.12)
                         .foregroundColor(Color.init(0xF6F1FB))
                         .font(.custom("Helvetica Neue", size: 14))
                 }
@@ -103,6 +103,8 @@ struct NextView : View {
         .onAppear{
             self.toArray()
         }
+        
+        
     }
     
     func toArray() {
@@ -114,6 +116,14 @@ struct NextView : View {
                 
                 items.append(Item(action: i, pic: i.lowercased(), expiration: xpir, account: "profile1"))
             }
+            self.fridgeList.append(contentsOf: items)
+            //self.fridgeList.append(contentsOf: items)
+            //
+            //self.fridgeItems.items.append(contentsOf: items)
+            /*
+            for i in items {
+                self.fridgeItems.items.append(i)                
+            }*/
         }
     }
 }

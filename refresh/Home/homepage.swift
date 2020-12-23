@@ -9,12 +9,13 @@ import SwiftUI
 
 struct homepage: View {
     
+    @ObservedObject var fridgeItems = FridgeItems()
     var body: some View {
             VStack(){
                 Image("refresh logo")
                
                 TabView {
-                    YourFridge()
+                    YourFridge(fridgeItems: fridgeItems.items)
                         .tabItem {
                             Image("fridge-logo")
                                 .resizable()
