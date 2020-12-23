@@ -45,17 +45,16 @@ struct Item: Identifiable {
    var account : String
 }
 class FridgeItems: ObservableObject {
-  @Published  var items: [Item] = [
-    Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile1"),
-    Item(action: "Steak", pic: "steak", expiration: 4.0, account: "profile2"),
-    Item(action: "Egg", pic: "egg", expiration: 12.0, account: "profile1"),
-    Item(action: "Mayo", pic: "mayo", expiration: 60.0, account: "profile1"),
-    Item(action: "Apple", pic: "apple", expiration: 4.0, account: "profile1"),
-    Item(action: "Carrot", pic: "carrot", expiration: 20.0, account: "profile2"),
-    Item(action: "Bread", pic: "bread", expiration: 7.0, account: "profile2"),
-    Item(action: "Green Sauce", pic: "greensauce", expiration: 45.0, account: "profile1")
-      
-   ]
+  @Published  var items: [Item] = [Item(action: "Apple", pic: "apple", expiration: 4.0, account: "profile1")]
+    /*
+      Item(action: "Potato", pic: "potato", expiration: 60.0, account: "profile1"),
+      Item(action: "Steak", pic: "steak", expiration: 4.0, account: "profile2"),
+      Item(action: "Egg", pic: "egg", expiration: 12.0, account: "profile1"),
+      Item(action: "Mayo", pic: "mayo", expiration: 60.0, account: "profile1"),
+      Item(action: "Apple", pic: "apple", expiration: 4.0, account: "profile1"),
+      Item(action: "Carrot", pic: "carrot", expiration: 20.0, account: "profile2"),
+      Item(action: "Bread", pic: "bread", expiration: 7.0, account: "profile2"),
+      Item(action: "Green Sauce", pic: "greensauce", expiration: 45.0, account: "profile1")*/
 }
 class CartItems: ObservableObject {
   @Published  var items: [Item] = [
@@ -90,21 +89,19 @@ class FridgeMembers: ObservableObject {
     Member(action: "Person 2", pic: "profile2", account: "profile2")
    ]
 }
-extension UINavigationController {
-    override open func viewDidLoad() {
-        super.viewDidLoad()
 
-    let standard = UINavigationBarAppearance()
-    standard.backgroundColor = .white //When you scroll or you have title (small one)
-
-    let compact = UINavigationBarAppearance()
-    compact.backgroundColor = .white //compact-height
-
-    let scrollEdge = UINavigationBarAppearance()
-    scrollEdge.backgroundColor = .white //When you have large title
-
-    navigationBar.standardAppearance = standard
-    navigationBar.compactAppearance = compact
-    navigationBar.scrollEdgeAppearance = scrollEdge
- }
+class ItemCategory : ObservableObject {
+    @Published var itemCategory : [ItemC] = [ItemC(name: "apple", category: "Fruit"),
+                                             ItemC(name: "carrot", category: "Veggies"),                                             
+                                             ItemC(name: "potato", category: "Veggies"),
+                                             ItemC(name: "egg", category: "Protein"),
+                                             ItemC(name: "steak", category: "Protein"),
+                                             ItemC(name: "bread", category: "Grains"),
+                                             ItemC(name: "greensauce", category: "Spices"),
+    ]
+}
+struct ItemC: Identifiable {
+   var id = UUID()
+   var name : String
+   var category : String
 }
